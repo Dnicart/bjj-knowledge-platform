@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
       <div class="container">
         <div class="site-footer__grid">
           <div>
-            <p class="site-footer__brand">Ground Game Guide</p>
+            <p class="site-footer__brand">BJJ Knowledge Platform</p>
             <p class="site-footer__tagline">Educational BJJ content for beginners.</p>
           </div>
           <nav aria-label="Footer navigation">
@@ -26,7 +26,7 @@ import { RouterLink } from '@angular/router';
           This site is for educational purposes only. Not medical advice. Belt promotion timelines vary by academy.
           Always verify competition rules with the governing organization.
         </p>
-        <p class="site-footer__copy">&copy; {{ year }} Ground Game Guide</p>
+        <p class="site-footer__copy">&copy; {{ year }} BJJ Knowledge Platform</p>
       </div>
     </footer>
   `,

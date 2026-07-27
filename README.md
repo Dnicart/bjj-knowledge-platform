@@ -1,4 +1,4 @@
-# Ground Game Guide
+# BJJ Knowledge Platform
 
 Educational Brazilian Jiu-Jitsu website for beginners. The Angular application lives in the [`client/`](client/) directory.
 

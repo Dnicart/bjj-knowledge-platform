@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { StorageService } from './storage.service';
 
-const FAVORITES_KEY = 'ggg-favorites';
+const FAVORITES_KEY = 'bjj-kp-favorites';
 
 @Injectable({ providedIn: 'root' })
 export class FavoritesService {

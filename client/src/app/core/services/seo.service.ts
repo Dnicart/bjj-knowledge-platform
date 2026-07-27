@@ -7,7 +7,7 @@ export class SeoService {
   private readonly meta = inject(Meta);
 
   updatePage(title: string, description?: string): void {
-    this.title.setTitle(`${title} | Ground Game Guide`);
+    this.title.setTitle(`${title} | BJJ Knowledge Platform`);
     if (description) {
       this.meta.updateTag({ name: 'description', content: description });
     }

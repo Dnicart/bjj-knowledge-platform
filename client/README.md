@@ -1,4 +1,4 @@
-# Ground Game Guide
+# BJJ Knowledge Platform
 
 Educational Brazilian Jiu-Jitsu website for beginners. Learn positions, techniques, terminology, rules, and more.
 

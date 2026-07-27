@@ -12,6 +12,6 @@ export class AboutComponent implements OnInit {
   private readonly seo = inject(SeoService);
 
   ngOnInit(): void {
-    this.seo.updatePage('About', 'About Ground Game Guide.');
+    this.seo.updatePage('About', 'About BJJ Knowledge Platform.');
   }
 }

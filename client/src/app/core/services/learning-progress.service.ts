@@ -2,7 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { LEARNING_PATH } from '../../data/learning-path/learning-path.data';
 import { StorageService } from './storage.service';
 
-const PROGRESS_KEY = 'ggg-learning-progress';
+const PROGRESS_KEY = 'bjj-kp-learning-progress';
 
 @Injectable({ providedIn: 'root' })
 export class LearningProgressService {
