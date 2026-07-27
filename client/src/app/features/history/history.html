@@ -1,0 +1,14 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'History' }]" />
+  <app-page-header title="History of Brazilian Jiu-Jitsu" lead="From Japanese judo roots to a global martial art." />
+  <ol class="timeline">
+    @for (event of timeline; track event.year) {
+      <li class="timeline__item card">
+        <time class="timeline__year">{{ event.year }}</time>
+        <h2>{{ event.title }}</h2>
+        <p>{{ event.description }}</p>
+      </li>
+    }
+  </ol>
+  <app-citation-list [sources]="sources" />
+</div>

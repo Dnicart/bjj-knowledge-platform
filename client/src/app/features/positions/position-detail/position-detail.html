@@ -1,0 +1,15 @@
+@if (position) {
+  <div class="page container">
+    <app-breadcrumbs [items]="[{ label: 'Positions', route: '/positions' }, { label: position.name }]" />
+    <h1>{{ position.name }}</h1>
+    <p>{{ position.description }}</p>
+    <h2>Key Objectives</h2>
+    <ul>
+      @for (obj of position.keyObjectives; track obj) {
+        <li>{{ obj }}</li>
+      }
+    </ul>
+    <app-related-techniques [slugs]="position.relatedTechniqueSlugs" />
+    <app-citation-list [sources]="position.sources" />
+  </div>
+}

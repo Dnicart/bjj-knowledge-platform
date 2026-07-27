@@ -1,0 +1,46 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a routerLink="/" class="site-header__logo" (click)="closeMobileNav()">
+      <span class="site-header__logo-text">Ground Game Guide</span>
+    </a>
+
+    <nav class="site-header__nav" aria-label="Main navigation">
+      <a routerLink="/techniques" routerLinkActive="active">Techniques</a>
+      <a routerLink="/positions" routerLinkActive="active">Positions</a>
+      <a routerLink="/learning-path" routerLinkActive="active">Learning Path</a>
+      <a routerLink="/glossary" routerLinkActive="active">Glossary</a>
+      <a routerLink="/articles" routerLinkActive="active">Articles</a>
+      <a routerLink="/favorites" routerLinkActive="active" class="site-header__favorites">
+        Favorites
+        @if (favoritesService.count() > 0) {
+          <span class="site-header__badge" aria-label="saved techniques">{{ favoritesService.count() }}</span>
+        }
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      class="site-header__menu-btn"
+      [attr.aria-expanded]="mobileNavOpen()"
+      aria-controls="mobile-nav"
+      aria-label="Toggle navigation menu"
+      (click)="toggleMobileNav()"
+    >
+      Menu
+    </button>
+  </div>
+</header>
+
+<app-mobile-nav
+  id="mobile-nav"
+  [open]="mobileNavOpen()"
+  (closed)="closeMobileNav()"
+/>
+
+<main id="main-content" class="main-content">
+  <router-outlet />
+</main>
+
+<app-site-footer />

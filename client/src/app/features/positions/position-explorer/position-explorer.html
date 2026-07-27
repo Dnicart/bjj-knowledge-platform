@@ -1,0 +1,40 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Positions' }]" />
+  <app-page-header
+    title="Position Explorer"
+    lead="Select a position to learn its objectives and related techniques."
+  />
+
+  <app-position-diagram
+    [hotspots]="hotspots"
+    [selectedSlug]="selectedSlug()"
+    (select)="onSelect($event)"
+  />
+
+  @if (selectedPosition(); as position) {
+    <section class="card position-detail-panel" aria-live="polite">
+      <h2>{{ position.name }}</h2>
+      <p>{{ position.description }}</p>
+      <h3>Key Objectives</h3>
+      <ul>
+        @for (obj of position.keyObjectives; track obj) {
+          <li>{{ obj }}</li>
+        }
+      </ul>
+      <a [routerLink]="['/positions', position.slug]" class="btn btn--primary">View full details</a>
+    </section>
+  }
+
+  <section aria-labelledby="all-positions-heading">
+    <h2 id="all-positions-heading">All Positions</h2>
+    <div class="card-grid">
+      @for (position of positions; track position.slug) {
+        <article class="card">
+          <h3><a [routerLink]="['/positions', position.slug]">{{ position.name }}</a></h3>
+          <p>{{ position.summary }}</p>
+          <span class="badge">{{ position.category }}</span>
+        </article>
+      }
+    </div>
+  </section>
+</div>

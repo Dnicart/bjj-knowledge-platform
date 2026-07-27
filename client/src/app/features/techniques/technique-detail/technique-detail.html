@@ -1,0 +1,55 @@
+@if (technique) {
+  <div class="page container">
+    <app-breadcrumbs [items]="[{ label: 'Techniques', route: '/techniques' }, { label: technique.name }]" />
+
+    <header class="technique-detail__header">
+      <div>
+        <span class="badge">{{ technique.category }}</span>
+        <h1>{{ technique.name }}</h1>
+        <p class="technique-detail__summary">{{ technique.summary }}</p>
+        <div class="technique-detail__meta">
+          <span class="badge">{{ technique.giMode }}</span>
+          <span class="badge">{{ technique.difficulty }}</span>
+        </div>
+      </div>
+      <app-favorite-button [slug]="technique.slug" />
+    </header>
+
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Step-by-Step</h2>
+      <ol class="technique-detail__steps">
+        @for (step of technique.steps; track step.order) {
+          <li>
+            <strong>{{ step.title }}</strong>
+            <p>{{ step.description }}</p>
+          </li>
+        }
+      </ol>
+    </section>
+
+    @if (technique.commonMistakes.length) {
+      <section aria-labelledby="mistakes-heading">
+        <h2 id="mistakes-heading">Common Mistakes</h2>
+        <ul>
+          @for (mistake of technique.commonMistakes; track mistake) {
+            <li>{{ mistake }}</li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (technique.safetyNotes.length) {
+      <div class="callout callout--safety" role="note">
+        <h2>Safety Notes</h2>
+        <ul>
+          @for (note of technique.safetyNotes; track note) {
+            <li>{{ note }}</li>
+          }
+        </ul>
+      </div>
+    }
+
+    <app-related-techniques [slugs]="technique.relatedTechniqueSlugs" />
+    <app-citation-list [sources]="technique.sources" />
+  </div>
+}

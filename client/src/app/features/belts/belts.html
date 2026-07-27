@@ -1,0 +1,35 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Belts' }]" />
+  <app-page-header
+    title="Adult Belt Levels"
+    lead="An overview of the traditional adult belt progression in Brazilian Jiu-Jitsu."
+  />
+
+  <div class="callout callout--warning" role="note">
+    <strong>Important:</strong> Belt promotion timelines vary significantly between academies and individuals.
+    This page describes general focus areas — not guaranteed promotion schedules.
+  </div>
+
+  <div class="belts__progression" aria-label="Belt progression from white to black">
+    @for (belt of belts; track belt.slug) {
+      <span class="belts__dot" [style.background]="belt.colorHex" [attr.title]="belt.name"></span>
+    }
+  </div>
+
+  @for (belt of belts; track belt.slug) {
+    <section class="card belts__card" [id]="belt.slug">
+      <div class="belts__card-header">
+        <span class="belts__swatch" [style.background]="belt.colorHex"></span>
+        <h2>{{ belt.name }}</h2>
+      </div>
+      <p>{{ belt.summary }}</p>
+      <h3>Typical Focus</h3>
+      <ul>
+        @for (item of belt.typicalFocus; track item) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+      <p class="belts__disclaimer"><em>{{ belt.disclaimer }}</em></p>
+    </section>
+  }
+</div>

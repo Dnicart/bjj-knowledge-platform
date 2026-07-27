@@ -1,0 +1,36 @@
+.belts__progression {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+  justify-content: center;
+}
+
+.belts__dot {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-strong);
+}
+
+.belts__card {
+  margin-bottom: var(--space-lg);
+}
+
+.belts__card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.belts__swatch {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.belts__disclaimer {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}

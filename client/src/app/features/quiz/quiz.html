@@ -1,0 +1,40 @@
+<div class="page container container--narrow">
+  <app-breadcrumbs [items]="[{ label: 'Quiz' }]" />
+  <app-page-header title="Knowledge Quiz" lead="10 multiple-choice questions to test your beginner BJJ knowledge." />
+
+  @if (!submitted()) {
+    <form (submit)="$event.preventDefault(); submit()">
+      @for (question of questions; track question.id; let i = $index) {
+        <fieldset class="fieldset quiz__question">
+          <legend>{{ i + 1 }}. {{ question.prompt }}</legend>
+          @for (choice of question.choices; track choice.id) {
+            <label class="checkbox-label">
+              <input
+                type="radio"
+                [name]="question.id"
+                [value]="choice.id"
+                [checked]="isSelected(question.id, choice.id)"
+                (change)="selectAnswer(question.id, choice.id)"
+              />
+              {{ choice.label }}
+            </label>
+          }
+        </fieldset>
+      }
+      <button type="submit" class="btn btn--primary" [disabled]="!canSubmit()">
+        Submit Quiz
+      </button>
+    </form>
+  } @else if (result(); as r) {
+    <section class="card quiz__results" aria-live="polite" tabindex="-1" id="quiz-results">
+      <h2>Your Score: {{ r.score }} / {{ r.total }} ({{ r.percent }}%)</h2>
+      @for (question of questions; track question.id) {
+        <div class="quiz__explanation" [class.quiz__explanation--correct]="answers()[question.id] === question.correctChoiceId">
+          <p><strong>{{ question.prompt }}</strong></p>
+          <p>{{ question.explanation }}</p>
+        </div>
+      }
+      <button type="button" class="btn btn--secondary" (click)="retake()">Retake Quiz</button>
+    </section>
+  }
+</div>

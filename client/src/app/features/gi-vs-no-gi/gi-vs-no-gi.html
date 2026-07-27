@@ -1,0 +1,20 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Gi vs No-Gi' }]" />
+  <app-page-header title="Gi vs No-Gi" lead="Both styles share the same core principles with different grips and pace." />
+  <div class="table-wrap">
+    <table class="comparison-table">
+      <thead>
+        <tr><th scope="col">Topic</th><th scope="col">Gi</th><th scope="col">No-Gi</th></tr>
+      </thead>
+      <tbody>
+        @for (row of rows; track row.topic) {
+          <tr>
+            <th scope="row">{{ row.topic }}</th>
+            <td>{{ row.gi }}</td>
+            <td>{{ row.noGi }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

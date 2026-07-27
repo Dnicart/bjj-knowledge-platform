@@ -1,0 +1,32 @@
+<div class="page container">
+  <section class="hero">
+    <h1>Ground Game Guide</h1>
+    <p class="hero__lead">
+      Clear, organized Brazilian Jiu-Jitsu education for beginners. Learn positions, techniques,
+      terminology, and what to expect on your first day on the mat.
+    </p>
+    <div class="hero__actions">
+      <a routerLink="/learning-path" class="btn btn--primary">Start Learning Path</a>
+      <a routerLink="/techniques" class="btn btn--secondary">Browse Techniques</a>
+    </div>
+  </section>
+
+  <section class="quick-links" aria-labelledby="quick-links-heading">
+    <h2 id="quick-links-heading">Explore</h2>
+    <div class="quick-links__grid">
+      <a routerLink="/beginner-guide" class="card quick-links__card">Beginner Guide</a>
+      <a routerLink="/positions" class="card quick-links__card">Position Explorer</a>
+      <a routerLink="/glossary" class="card quick-links__card">Glossary</a>
+      <a routerLink="/quiz" class="card quick-links__card">Knowledge Quiz</a>
+    </div>
+  </section>
+
+  <section aria-labelledby="featured-heading">
+    <h2 id="featured-heading">Featured Techniques</h2>
+    <div class="card-grid">
+      @for (technique of featured; track technique.slug) {
+        <app-technique-card [technique]="technique" />
+      }
+    </div>
+  </section>
+</div>

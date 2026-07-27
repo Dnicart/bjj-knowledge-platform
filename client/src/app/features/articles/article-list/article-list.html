@@ -1,0 +1,9 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Articles' }]" />
+  <app-page-header title="Articles" lead="In-depth educational articles for beginners." />
+  <div class="card-grid">
+    @for (article of articles; track article.slug) {
+      <app-article-card [article]="article" />
+    }
+  </div>
+</div>

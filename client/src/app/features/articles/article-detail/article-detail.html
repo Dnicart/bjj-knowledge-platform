@@ -1,0 +1,22 @@
+@if (article) {
+  <div class="page container container--narrow">
+    <app-breadcrumbs [items]="[{ label: 'Articles', route: '/articles' }, { label: article.title }]" />
+    <article>
+      <header>
+        <h1>{{ article.title }}</h1>
+        <p class="article-detail__summary">{{ article.summary }}</p>
+        <time [attr.datetime]="article.publishedAt">{{ article.publishedAt }}</time>
+      </header>
+      @for (section of article.sections; track section.heading) {
+        <section>
+          <h2>{{ section.heading }}</h2>
+          @for (p of section.paragraphs; track p) { <p>{{ p }}</p> }
+          @if (section.bullets?.length) {
+            <ul>@for (b of section.bullets; track b) { <li>{{ b }}</li> }</ul>
+          }
+        </section>
+      }
+    </article>
+    <app-citation-list [sources]="article.sources" />
+  </div>
+}

@@ -1,0 +1,36 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Rules' }]" />
+  <app-page-header
+    title="Competition Rules Overview"
+    lead="A beginner-friendly summary of common scoring. Rules vary by organization."
+  />
+
+  <div class="callout callout--warning" role="note">
+    <strong>Ruleset:</strong> {{ rules.ruleset }} — reviewed {{ rules.reviewedAt }}.
+    Always verify with the current official rules before competing.
+  </div>
+
+  <section aria-labelledby="scoring-heading">
+    <h2 id="scoring-heading">Scoring (IBJJF)</h2>
+    <table class="comparison-table">
+      <thead><tr><th scope="col">Action</th><th scope="col">Points</th></tr></thead>
+      <tbody>
+        @for (row of rules.scoring; track row.action) {
+          <tr><th scope="row">{{ row.action }}</th><td>{{ row.points }}</td></tr>
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="submissions-heading">
+    <h2 id="submissions-heading">Legal Submissions (White Belt)</h2>
+    <ul>
+      @for (sub of rules.legalSubmissions.whiteBelt; track sub) {
+        <li>{{ sub }}</li>
+      }
+    </ul>
+    <p><em>{{ rules.legalSubmissions.note }}</em></p>
+  </section>
+
+  <app-citation-list [sources]="rules.sources" />
+</div>

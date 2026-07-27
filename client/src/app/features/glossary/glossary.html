@@ -1,0 +1,43 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Glossary' }]" />
+  <app-page-header title="BJJ Glossary" lead="Common terms you will hear on the mat." />
+
+  <app-search-field
+    inputId="glossary-search"
+    label="Search terms"
+    placeholder="Search glossary..."
+    [value]="query()"
+    (valueChange)="onSearch($event)"
+  />
+
+  <nav class="glossary__letters" aria-label="Jump to letter">
+    @for (letter of letters; track letter) {
+      <button type="button" class="btn btn--ghost glossary__letter" (click)="jumpToLetter(letter)">{{ letter }}</button>
+    }
+  </nav>
+
+  <p aria-live="polite" aria-atomic="true" class="glossary__count">
+    {{ filteredTerms().length }} term{{ filteredTerms().length === 1 ? '' : 's' }}
+  </p>
+
+  @if (filteredTerms().length) {
+    <dl class="glossary__list">
+      @for (term of filteredTerms(); track term.slug) {
+        <div class="glossary__item card" [id]="'glossary-' + term.term[0].toUpperCase()">
+          <dt class="glossary__term">{{ term.term }}</dt>
+          <dd>
+            <p>{{ term.shortDefinition }}</p>
+            @if (term.expandedExplanation) {
+              <p class="glossary__expanded">{{ term.expandedExplanation }}</p>
+            }
+            @if (term.alsoKnownAs?.length) {
+              <p class="glossary__aka"><em>Also known as: {{ term.alsoKnownAs.join(', ') }}</em></p>
+            }
+          </dd>
+        </div>
+      }
+    </dl>
+  } @else {
+    <app-empty-state title="No terms match your search" message="Try a different search term." />
+  }
+</div>

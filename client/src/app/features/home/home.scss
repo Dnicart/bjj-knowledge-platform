@@ -1,0 +1,40 @@
+.hero {
+  padding: var(--space-2xl) 0;
+  text-align: center;
+
+  &__lead {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 40rem;
+    margin: var(--space-md) auto var(--space-xl);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+}
+
+.quick-links {
+  margin-bottom: var(--space-2xl);
+
+  &__grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  }
+
+  &__card {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+    text-align: center;
+    transition: box-shadow 0.15s;
+
+    &:hover {
+      box-shadow: var(--shadow-md);
+    }
+  }
+}

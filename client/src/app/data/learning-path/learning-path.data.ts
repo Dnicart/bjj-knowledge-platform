@@ -1,0 +1,68 @@
+import { LearningPathItem } from '../../core/models';
+
+export const LEARNING_PATH: LearningPathItem[] = [
+  {
+    id: 'lp-1',
+    order: 1,
+    title: 'Read: What Is BJJ?',
+    description: 'Understand the basics of Brazilian Jiu-Jitsu before stepping on the mat.',
+    linkType: 'article',
+    linkTarget: 'what-is-bjj',
+  },
+  {
+    id: 'lp-2',
+    order: 2,
+    title: 'Review the Beginner Guide',
+    description: 'Learn what to expect in your first class, etiquette, and safety.',
+    linkType: 'page',
+    linkTarget: '/beginner-guide',
+  },
+  {
+    id: 'lp-3',
+    order: 3,
+    title: 'Learn: Technical Stand-Up',
+    description: 'Master the safe way to return to your feet from the ground.',
+    linkType: 'technique',
+    linkTarget: 'technical-stand-up',
+  },
+  {
+    id: 'lp-4',
+    order: 4,
+    title: 'Learn: Shrimp Escape',
+    description: 'Practice the foundational hip-escape movement.',
+    linkType: 'technique',
+    linkTarget: 'shrimp-escape',
+  },
+  {
+    id: 'lp-5',
+    order: 5,
+    title: 'Learn: Bridge-and-Roll Escape',
+    description: 'Study the classic mount escape.',
+    linkType: 'technique',
+    linkTarget: 'bridge-and-roll-mount-escape',
+  },
+  {
+    id: 'lp-6',
+    order: 6,
+    title: 'Explore Positions',
+    description: 'Familiarize yourself with core BJJ positions.',
+    linkType: 'page',
+    linkTarget: '/positions',
+  },
+  {
+    id: 'lp-7',
+    order: 7,
+    title: 'Study the Glossary',
+    description: 'Learn common BJJ terminology.',
+    linkType: 'page',
+    linkTarget: '/glossary',
+  },
+  {
+    id: 'lp-8',
+    order: 8,
+    title: 'Take the Knowledge Quiz',
+    description: 'Test what you have learned so far.',
+    linkType: 'page',
+    linkTarget: '/quiz',
+  },
+];

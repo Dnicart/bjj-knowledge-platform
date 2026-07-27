@@ -1,0 +1,34 @@
+<div class="page container container--narrow">
+  <app-breadcrumbs [items]="[{ label: 'Learning Path' }]" />
+  <app-page-header
+    title="Beginner Learning Path"
+    lead="Follow these steps in order to build a solid foundation."
+  />
+
+  <div class="progress-summary card" aria-live="polite">
+    <p><strong>{{ progress.completedCount() }}</strong> of <strong>{{ progress.total }}</strong> completed ({{ progress.progressPercent() }}%)</p>
+    <div class="progress-summary__bar" role="progressbar" [attr.aria-valuenow]="progress.progressPercent()" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-summary__fill" [style.width.%]="progress.progressPercent()"></div>
+    </div>
+  </div>
+
+  <ol class="learning-path__list">
+    @for (item of progress.items; track item.id) {
+      <li class="card learning-path__item">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            [checked]="progress.isCompleted(item.id)"
+            (change)="toggle(item.id)"
+            [attr.aria-label]="'Mark ' + item.title + ' as complete'"
+          />
+          <div>
+            <strong>{{ item.order }}. {{ item.title }}</strong>
+            <p>{{ item.description }}</p>
+            <a [routerLink]="getLink(item)" class="btn btn--ghost">Go to lesson</a>
+          </div>
+        </label>
+      </li>
+    }
+  </ol>
+</div>

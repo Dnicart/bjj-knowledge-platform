@@ -1,0 +1,16 @@
+<div class="page container">
+  <app-breadcrumbs [items]="[{ label: 'Favorites' }]" />
+  <app-page-header title="Saved Techniques" lead="Techniques you have bookmarked for later study." />
+
+  @if (favoriteTechniques().length) {
+    <div class="card-grid">
+      @for (technique of favoriteTechniques(); track technique.slug) {
+        <app-technique-card [technique]="technique" />
+      }
+    </div>
+  } @else {
+    <app-empty-state title="No favorites yet" message="Save techniques while browsing to see them here.">
+      <a routerLink="/techniques" class="btn btn--primary">Browse Techniques</a>
+    </app-empty-state>
+  }
+</div>
