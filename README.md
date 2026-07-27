@@ -7,7 +7,7 @@
 
 An educational Brazilian Jiu-Jitsu web app for beginners — built as a portfolio project to demonstrate modern Angular architecture, accessibility-minded UI, and static-first content design.
 
-**Live demo:** _Coming soon_
+**Live demo:** [Demo](https://bjj-knowledge-platform-7zwb7c7ey-dnicarts-projects.vercel.app)
 
 ## Highlights
 
