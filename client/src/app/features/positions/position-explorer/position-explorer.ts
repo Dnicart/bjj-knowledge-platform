@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { POSITION_HOTSPOTS } from '../../data/positions/positions.data';
-import { PositionDataService } from '../../core/services/position-data.service';
-import { SeoService } from '../../core/services/seo.service';
-import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs/breadcrumbs';
-import { PageHeaderComponent } from '../../shared/components/page-header/page-header';
-import { PositionDiagramComponent } from '../../shared/components/position-diagram/position-diagram';
+import { POSITION_HOTSPOTS } from '../../../data/positions/positions.data';
+import { PositionDataService } from '../../../core/services/position-data.service';
+import { SeoService } from '../../../core/services/seo.service';
+import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header';
+import { PositionDiagramComponent } from '../../../shared/components/position-diagram/position-diagram';
 
 @Component({
   selector: 'app-position-explorer',

@@ -1,15 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TechniqueSort, TechniqueFilters } from '../../core/models';
-import { TechniqueDataService } from '../../core/services/technique-data.service';
-import { SeoService } from '../../core/services/seo.service';
-import { filtersToParams, parseFiltersFromParams } from '../../core/utils/technique-filters';
-import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs/breadcrumbs';
-import { PageHeaderComponent } from '../../shared/components/page-header/page-header';
-import { SearchFieldComponent } from '../../shared/components/search-field/search-field';
-import { TechniqueFiltersComponent } from '../../shared/components/technique-filters/technique-filters';
-import { TechniqueCardComponent } from '../../shared/components/technique-card/technique-card';
-import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state';
+import { TechniqueSort, TechniqueFilters } from '../../../core/models';
+import { TechniqueDataService } from '../../../core/services/technique-data.service';
+import { SeoService } from '../../../core/services/seo.service';
+import { filtersToParams, parseFiltersFromParams } from '../../../core/utils/technique-filters';
+import { BreadcrumbsComponent } from '../../../shared/components/breadcrumbs/breadcrumbs';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header';
+import { SearchFieldComponent } from '../../../shared/components/search-field/search-field';
+import { TechniqueFiltersComponent } from '../../../shared/components/technique-filters/technique-filters';
+import { TechniqueCardComponent } from '../../../shared/components/technique-card/technique-card';
+import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-technique-list',

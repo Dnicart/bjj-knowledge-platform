@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FavoritesService } from '../../core/services/favorites.service';
-import { SiteFooterComponent } from './site-footer/site-footer';
-import { MobileNavComponent } from './mobile-nav/mobile-nav';
+import { SiteFooterComponent } from '../site-footer/site-footer';
+import { MobileNavComponent } from '../mobile-nav/mobile-nav';
 
 @Component({
   selector: 'app-main-layout',

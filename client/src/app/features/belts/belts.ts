@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { BELTS } from '../../data/belts/belts.data';
 import { SeoService } from '../../core/services/seo.service';
 import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs/breadcrumbs';
@@ -7,7 +6,7 @@ import { PageHeaderComponent } from '../../shared/components/page-header/page-he
 
 @Component({
   selector: 'app-belts',
-  imports: [RouterLink, BreadcrumbsComponent, PageHeaderComponent],
+  imports: [BreadcrumbsComponent, PageHeaderComponent],
   templateUrl: './belts.html',
   styleUrl: './belts.scss',
 })
