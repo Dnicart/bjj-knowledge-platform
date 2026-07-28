@@ -1,0 +1,34 @@
+<div class="language-selector notranslate" translate="no">
+  <button
+    type="button"
+    class="language-selector__trigger"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="open()"
+    (click)="toggleDropdown($event)"
+  >
+    <span class="language-selector__flag" aria-hidden="true">{{ languageService.currentLanguage().flag }}</span>
+    <span class="language-selector__label">{{ languageService.currentLanguage().label }}</span>
+    <span class="language-selector__chevron" aria-hidden="true">▾</span>
+  </button>
+
+  @if (open()) {
+    <ul class="language-selector__menu" role="listbox" aria-label="Select language" (click)="$event.stopPropagation()">
+      @for (language of languageService.languages; track language.code) {
+        <li>
+          <button
+            type="button"
+            class="language-selector__option"
+            [class.language-selector__option--active]="languageService.currentLanguage().code === language.code"
+            [attr.aria-selected]="languageService.currentLanguage().code === language.code"
+            (click)="chooseLanguage(language.code, $event)"
+          >
+            <span class="language-selector__flag" aria-hidden="true">{{ language.flag }}</span>
+            <span>{{ language.label }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+
+  <div id="google_translate_element" class="language-selector__google-anchor" aria-hidden="true"></div>
+</div>

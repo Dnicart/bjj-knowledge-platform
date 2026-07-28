@@ -3,10 +3,11 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FavoritesService } from '../../core/services/favorites.service';
 import { SiteFooterComponent } from '../site-footer/site-footer';
 import { MobileNavComponent } from '../mobile-nav/mobile-nav';
+import { LanguageSelectorComponent } from '../language-selector/language-selector';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, SiteFooterComponent, MobileNavComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, SiteFooterComponent, MobileNavComponent, LanguageSelectorComponent],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
