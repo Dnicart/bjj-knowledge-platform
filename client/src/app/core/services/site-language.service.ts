@@ -70,7 +70,7 @@ export class SiteLanguageService {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd && this.currentLanguage().code !== DEFAULT_LANGUAGE.code) {
           queueMicrotask(() => {
-            window.setTimeout(() => this.syncWidgetToCurrentLanguage(), 200);
+            window.setTimeout(() => this.syncWidgetToCurrentLanguage(true), 200);
           });
         }
       });
@@ -84,8 +84,7 @@ export class SiteLanguageService {
     this.applyDocumentLanguage(next);
 
     if (this.isBrowser()) {
-      this.ensureGoogleTranslate();
-      window.setTimeout(() => this.syncWidgetToCurrentLanguage(), 150);
+      window.location.assign(this.router.url);
     }
   }
 
@@ -155,7 +154,7 @@ export class SiteLanguageService {
     this.document.head.appendChild(script);
   }
 
-  private syncWidgetToCurrentLanguage(): void {
+  private syncWidgetToCurrentLanguage(forceRefresh = false): void {
     if (!this.isBrowser() || !this.widgetInitialized) {
       return;
     }
@@ -168,6 +167,20 @@ export class SiteLanguageService {
     const targetValue = this.currentLanguage().translateCode === DEFAULT_LANGUAGE.translateCode
       ? ''
       : this.currentLanguage().translateCode;
+
+    if (!targetValue) {
+      return;
+    }
+
+    if (forceRefresh && combo.value === targetValue) {
+      combo.value = '';
+      combo.dispatchEvent(new Event('change'));
+      window.setTimeout(() => {
+        combo.value = targetValue;
+        combo.dispatchEvent(new Event('change'));
+      }, 0);
+      return;
+    }
 
     if (combo.value !== targetValue) {
       combo.value = targetValue;
