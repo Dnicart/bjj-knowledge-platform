@@ -66,9 +66,14 @@ export class SiteLanguageService {
     this.applyDocumentLanguage(initial);
 
     if (this.isBrowser()) {
+      // Clear any leftover empty/broken googtrans cookie from earlier English resets.
+      if (initial.code === DEFAULT_LANGUAGE.code) {
+        this.deleteGoogleCookies();
+      }
+
       this.ensureGoogleTranslate();
       this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd && this.currentLanguage().code !== DEFAULT_LANGUAGE.code) {
+        if (event instanceof NavigationEnd) {
           queueMicrotask(() => {
             window.setTimeout(() => this.syncWidgetToCurrentLanguage(true), 200);
           });
@@ -83,9 +88,16 @@ export class SiteLanguageService {
     this.persistLanguage(next);
     this.applyDocumentLanguage(next);
 
-    if (this.isBrowser()) {
-      window.location.assign(this.router.url);
+    if (!this.isBrowser()) {
+      return;
     }
+
+    if (next.code === DEFAULT_LANGUAGE.code) {
+      this.resetToOriginalLanguage();
+    }
+
+    // Hard reload keeps Google Translate and Angular state aligned after every switch.
+    window.location.reload();
   }
 
   private getInitialLanguage(): SupportedLanguage {
@@ -109,7 +121,11 @@ export class SiteLanguageService {
     }
 
     window.localStorage.setItem(STORAGE_KEY, language.code);
-    this.writeGoogleCookie(language);
+    if (language.code === DEFAULT_LANGUAGE.code) {
+      this.deleteGoogleCookies();
+    } else {
+      this.writeGoogleCookie(language);
+    }
   }
 
   private applyDocumentLanguage(language: SupportedLanguage): void {
@@ -164,11 +180,19 @@ export class SiteLanguageService {
       return;
     }
 
-    const targetValue = this.currentLanguage().translateCode === DEFAULT_LANGUAGE.translateCode
-      ? ''
-      : this.currentLanguage().translateCode;
+    const targetValue =
+      this.currentLanguage().translateCode === DEFAULT_LANGUAGE.translateCode
+        ? ''
+        : this.currentLanguage().translateCode;
 
+    // English must actively reset the combo; skipping leaves Google Translate stuck.
     if (!targetValue) {
+      if (combo.value) {
+        combo.value = '';
+        combo.dispatchEvent(new Event('change'));
+      }
+      this.deleteGoogleCookies();
+      this.clickGoogleRestoreButton();
       return;
     }
 
@@ -188,13 +212,61 @@ export class SiteLanguageService {
     }
   }
 
-  private writeGoogleCookie(language: SupportedLanguage): void {
-    const cookieValue =
-      language.translateCode === DEFAULT_LANGUAGE.translateCode
-        ? ''
-        : `/en/${language.translateCode}`;
+  private resetToOriginalLanguage(): void {
+    this.deleteGoogleCookies();
 
+    const combo = this.document.querySelector<HTMLSelectElement>('.goog-te-combo');
+    if (combo && combo.value) {
+      combo.value = '';
+      combo.dispatchEvent(new Event('change'));
+    }
+
+    this.clickGoogleRestoreButton();
+    this.document.documentElement.classList.remove('translated-ltr', 'translated-rtl');
+  }
+
+  private clickGoogleRestoreButton(): void {
+    const frame =
+      this.document.querySelector<HTMLIFrameElement>('.goog-te-banner-frame') ??
+      this.document.querySelector<HTMLIFrameElement>('#\\:1\\.container');
+    if (!frame?.contentDocument) {
+      return;
+    }
+
+    const buttons = frame.contentDocument.getElementsByTagName('button');
+    for (const button of Array.from(buttons)) {
+      if (button.id.toLowerCase().includes('restore')) {
+        button.click();
+        return;
+      }
+    }
+  }
+
+  private writeGoogleCookie(language: SupportedLanguage): void {
+    const cookieValue = `/en/${language.translateCode}`;
     this.document.cookie = `${GOOGLE_COOKIE}=${cookieValue};path=/;max-age=31536000`;
+
+    const hostname = window.location.hostname;
+    if (hostname && hostname !== 'localhost' && !/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+      this.document.cookie = `${GOOGLE_COOKIE}=${cookieValue};path=/;domain=.${hostname};max-age=31536000`;
+    }
+  }
+
+  private deleteGoogleCookies(): void {
+    if (!this.isBrowser()) {
+      return;
+    }
+
+    const expire = 'Thu, 01 Jan 1970 00:00:00 GMT';
+    const hostname = window.location.hostname;
+    const domains = ['', hostname, hostname ? `.${hostname}` : ''].filter((value, index, all) => {
+      return value !== undefined && all.indexOf(value) === index;
+    });
+
+    for (const domain of domains) {
+      const domainPart = domain ? `;domain=${domain}` : '';
+      this.document.cookie = `${GOOGLE_COOKIE}=;expires=${expire};path=/${domainPart}`;
+    }
   }
 
   private readGoogleCookie(): string | null {
@@ -203,8 +275,17 @@ export class SiteLanguageService {
       return null;
     }
 
-    const parts = decodeURIComponent(match[1]).split('/');
-    return parts.at(-1) || null;
+    const raw = decodeURIComponent(match[1]).trim();
+    if (!raw) {
+      return null;
+    }
+
+    const parts = raw.split('/');
+    const code = parts.at(-1) || null;
+    if (!code || code === DEFAULT_LANGUAGE.translateCode) {
+      return null;
+    }
+    return code;
   }
 
   private getLanguageByCode(code: string): SupportedLanguage {
